@@ -4,11 +4,16 @@
   <title>ImageEditor</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <script type="text/javascript" src="//api.filepicker.io/v2/filepicker.js"></script>
+  <!-- Load Feather code -->
+  <script type="text/javascript" src="http://feather.aviary.com/js/feather.js"></script>
   <%= csrf_meta_tags %>
 </head>
 <body>
 
-<%= yield %>
+<%= render 'layouts/navigation' %>
+ <%= yield %>
+<%= render 'layouts/footer' %>
 
 </body>
 </html>

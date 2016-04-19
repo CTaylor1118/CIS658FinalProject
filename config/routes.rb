@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  get 'editor/index'
+
+  devise_for :users
+  resources :projects
+
+  root 'home#index'
+  get 'home' => 'home#index'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

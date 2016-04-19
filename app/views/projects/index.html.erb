@@ -1,0 +1,62 @@
+<p id="notice"><%= notice %></p>
+<div class="page-header">
+  <h1>My Projects</h1>
+</div>
+<div class="row">
+  <% @projects.each do |project| %>
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+      <div class="thumbnail">
+        <img src="<%= project.image %>" alt="<%= project.name %>" class="img-thumbnail"/>
+        <div class="caption">
+          <div>
+            <span style="font-size:1.5em" class="pull-left"><%= project.name %></span>
+            <div>
+              <span style="font-size:2.0em" class="glyphicon glyphicon-pencil pull-right" aria-hidden="true"></span>
+            </div>
+          </div>
+          <hr>
+          <div class="btn-group btn-group-default btn-group-justified" role="group">
+            <a href="/projects/<%= project.id %>/edit" class="btn btn-primary text-center" role="button">
+              <span style="font-size:2.0em" class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+            </a> 
+            <a href="/projects/<%= project.id %>/edit" class="btn btn-success text-center" role="button">
+              <span style="font-size:2.0em" class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> 
+            </a>
+            <a href="/projects/<%= project.id %>/destroy" class="btn btn-danger text-center" role="button">
+              <span  style="font-size:2.0em" class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+<!--
+<table>
+  <thead>
+    <tr>
+      <th>Version</th>
+      <th>Name</th>
+      <th>Image</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @projects.each do |project| %>
+      <tr>
+        <td><%= project.version %></td>
+        <td><%= project.name %></td>
+        <td><%= project.image %></td>
+        <td><%= link_to 'Show', project %></td>
+        <td><%= link_to 'Edit', edit_project_path(project) %></td>
+        <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Project', new_project_path %>
+-->

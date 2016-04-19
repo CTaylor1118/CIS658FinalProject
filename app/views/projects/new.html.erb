@@ -1,0 +1,28 @@
+<!--
+<script type="text/javascript" src="//api.filestackapi.com/filestack.js"></script>
+<input type="filepicker" data-fp-apikey="AszT4VzZRMm5R0BtsKYVoz"
+onchange="alert(event.fpfile.url)">
+-->
+<div class="embed-responsive embed-responsive-16by9">
+  <iframe id="uploader"class="embed-responsive-item"></iframe>
+</div>
+<script type="text/javascript">
+  filepicker.setKey("AszT4VzZRMm5R0BtsKYVoz");
+  filepicker.pick(
+ {
+    mimetype: 'image/*',
+    container: 'uploader',
+    services: ['COMPUTER', 'FACEBOOK', 'INSTAGRAM', 'IMGUR', 'FLICKR']
+  },
+  function(Blob){
+    console.log(JSON.stringify(Blob));
+  },
+  function(FPError){
+//  console.log(FPError.toString()); - print errors to console
+  }
+);
+</script>
+
+<%= render 'form' %>
+
+<%= link_to 'Back', projects_path %>

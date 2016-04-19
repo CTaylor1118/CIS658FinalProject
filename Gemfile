@@ -45,3 +45,7 @@ group :development do
   gem 'spring'
 end
 
+gem 'devise'
+gem 'bootstrap-sass', '~> 3.3.6'
+gem 'filepicker-rails'
+gem 'bootswatch-rails'

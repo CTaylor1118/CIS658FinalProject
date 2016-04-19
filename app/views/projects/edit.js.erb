@@ -1,0 +1,16 @@
+var featherEditor = new Aviary.Feather({
+  apiKey: '783d5402c251495d9f4f5b0721fc5f5',
+  tools: ['draw', 'stickers'],
+  onSave: function(imageID, newURL) {
+    var img = document.getElementById(imageID);
+    img.src = newURL;
+  }
+});
+
+function launchEditor(id, src) {
+  featherEditor.launch({
+      image: 'editor',
+      url: 'http://i.imgur.com/TBYc729.jpg'
+  });
+  return false;
+}

@@ -1,0 +1,56 @@
+<div id="editor" class="container">
+  <img id="image" width="0px" src="<%= @project.image %>" display="hidden"></img>
+</div>
+<script type="text/javascript">
+  var featherEditor = new Aviary.Feather({
+    apiKey: '783d5402c251495d9f4f5b0721fc5f5',
+    theme: 'dark',
+    appendTo: 'editor',
+    enableCORS: true,
+    noCloseButton: true,
+    launchDelay: 0,
+    closeDelay: 0,
+    tools: ['enhance', 'crop', 'orientation', 'effects', 'frames', 'splash', 'stickers', 'text'],
+    onSave: function(imageID, newURL) {
+      var img = document.getElementById(imageID);
+      img.src = newURL;
+    },
+    onLoad: function() {
+        launchEditor();
+        $('div.avpw_mode_action.avpw_mode_action_right').append("<a id=\"avpw_cancel_button\" href=\"javascript:void(0)\" class=\"avpw_button \">Cancel</a>")
+        $('#avpw_save_button').offset({top: 10});
+        $('#avpw_cancel_button').offset({top: 60});
+        $('#avpw_save_button').css('background-image', null);
+        console.log($('#avpw_cancel_button').css('background-image', ''))
+    },
+    onError: function(error){
+      console.log(error)
+    },
+    onReady: function(){
+    }
+  });
+  /*
+  $('img').on('load', function(){
+    console.log("Loaded")
+    console.log("<%= @project.image %>")
+    var launch = featherEditor.launch({
+      image: 'image',
+      url: '<%= @project.image %>'
+    }); 
+    console.log(launch) 
+  }) 
+*/
+  function launchEditor() {
+    featherEditor.launch({
+        image: 'image',
+        url: '<%= @project.image %>'
+    });
+    //return false;
+  }
+</script>
+
+<!--
+<%= render 'form' %>
+-->
+<%= link_to 'Show', @project %> |
+<%= link_to 'Back', projects_path %>
