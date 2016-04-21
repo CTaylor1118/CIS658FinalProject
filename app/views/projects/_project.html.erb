@@ -1,0 +1,25 @@
+<div projectid="<%= project.id %>"class="project col-xs-12 col-sm-6 col-md-4 col-lg-3">
+  <div class="thumbnail">
+    <img src="<%= project.image %>" alt="<%= project.name %>" class="img-thumbnail"/>
+    <div class="caption">
+      <div>
+        <span class="projectname pull-left"><%= project.name %></span>
+        <button type="button" class="btn btn-secondary js-rename pull-right">
+          <span class="glyphicon glyphicon-pencil pull-right" aria-hidden="true"></span>
+        </button>
+      </div>
+      <hr>
+      <div class="btn-group btn-group-default btn-group-justified" role="group">
+        <a href="/projects/<%= project.id %>/edit" class="btn btn-primary text-center" role="button">
+          <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+        </a> 
+        <a href="/projects/<%= project.id %>/edit.js" class="btn btn-success text-center" role="button">
+          <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> 
+        </a>
+        <a href="/projects/<%= project.id %>" class="btn btn-danger text-center" role="button" data-method="delete" data-remote="true">
+          <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

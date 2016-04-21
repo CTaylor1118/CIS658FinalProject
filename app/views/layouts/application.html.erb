@@ -4,16 +4,32 @@
   <title>ImageEditor</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <script type="text/javascript" src="//api.filepicker.io/v2/filepicker.js"></script>
   <!-- Load Feather code -->
-  <script type="text/javascript" src="http://feather.aviary.com/js/feather.js"></script>
+  <script type="text/javascript" src="https://dme0ih8comzn4.cloudfront.net/js/feather.js"></script>
   <%= csrf_meta_tags %>
 </head>
 <body>
-
+<!--
+  Need to call script in body because filepicker is stupid and contructs some 
+  iframes when the script is loaded rather than when a constructer is called
+-->
+<%= filepicker_js_include_tag %>
 <%= render 'layouts/navigation' %>
- <%= yield %>
+<div class="content container-fluid">
+  <%= yield %>
+</div>
 <%= render 'layouts/footer' %>
 
 </body>
+<script type="text/javascript">
+  $(document).ready(function () {
+    var url = window.location;
+    $('.navbar .nav').find('.active').removeClass('active');
+    $('.navbar .nav li a').each(function () {
+      if (this.href == url) {
+        $(this).parent().addClass('active');
+      }
+    }); 
+  });
+</script>
 </html>

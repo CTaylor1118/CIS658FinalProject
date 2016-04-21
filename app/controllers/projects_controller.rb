@@ -1,10 +1,22 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy]
+  before_action :all_projects, only: [:show, :edit, :update, :destroy]
+  helper_method :redirect_to
+  respond_to :html, :js 
+
+  def all_projects
+    @projects = current_user.projects.all
+  end
 
   # GET /projects
   # GET /projects.json
   def index
-    @projects = Project.all
+    @projects = current_user.projects.all
+
+    # if we do not have any projects, redirect to project new
+    if @projects.count == 0
+      redirect_to new_project_path
+    end
   end
 
   # GET /projects/1
@@ -19,6 +31,9 @@ class ProjectsController < ApplicationController
 
   # GET /projects/1/edit
   def edit
+    projects = current_user.projects.all
+    numProjects = projects.count
+    @redirect_to = numProjects ? projects_path : home_path
   end
 
   # POST /projects
@@ -42,7 +57,7 @@ class ProjectsController < ApplicationController
   def update
     respond_to do |format|
       if @project.update(project_params)
-        format.html { redirect_to @project, notice: 'Project was successfully updated.' }
+        #format.html { redirect_to @project, notice: 'Project was successfully updated.' }
         format.json { render :show, status: :ok, location: @project }
       else
         format.html { render :edit }
@@ -55,10 +70,11 @@ class ProjectsController < ApplicationController
   # DELETE /projects/1.json
   def destroy
     @project.destroy
-    respond_to do |format|
-      format.html { redirect_to projects_url, notice: 'Project was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    #
+    #respond_to do |format|
+    # format.html { redirect_to projects_url, notice: 'Project was successfully destroyed.' }
+    #  format.json { head :no_content }
+    #end
   end
 
   private
@@ -69,6 +85,6 @@ class ProjectsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
-      params.require(:project).permit(:version, :name, :image)
+      params.require(:project).permit(:version, :name, :image, :user_id)
     end
 end

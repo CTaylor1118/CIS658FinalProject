@@ -1,4 +1,4 @@
-<div class="navbar navbar-inverse navbar-fixed-top">
+<div id="header"class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -9,11 +9,20 @@
     </div> <!-- end div class="navbar-header" -->
     <div class="collapse navbar-collapse text-center">
       <ul class="nav navbar-nav">
-        <li><a href="/projects/new">Editor <span class="glyphicon glyphicon-home"></span></a></li>
-        <li><a href="/projects">Projects <span class="glyphicon glyphicon-picture"></span></a></li>
+        <li class="active"><a href="/home"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+        <li><a href="/projects/new"><span class="glyphicon glyphicon-edit"></span> Editor</a></li>
+        <li><a href="/projects"><span class="glyphicon glyphicon-picture"></span> Projects</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="/users/sign_up">Sign In <span class="glyphicon glyphicon-log-in"></span></a></li>
+        <% if current_user.isGuest? %>
+          <li>
+            <%= link_to((content_tag(:span, "", :class => "glyphicon glyphicon-log-in") + " Sign In").html_safe, new_user_session_path) %>
+          </li>
+        <% elsif user_signed_in? %>
+          <li>
+            <%= link_to((content_tag(:span, "", :class => "glyphicon glyphicon-log-out") +  " Logout ").html_safe, destroy_user_session_path, :method => :delete)%>
+          </li>
+        <% end %>
       </ul>
     </div> <!-- end div class="collapse navbar-collapse" -->
   </div> <!-- end div class="container" -->
