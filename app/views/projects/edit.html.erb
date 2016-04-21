@@ -38,31 +38,39 @@
         filename: '<%= @project.name %>'
       }
       filepicker.setKey("AszT4VzZRMm5R0BtsKYVoz");
-      filepicker.writeUrl(blob, newURL, function(Blob){
-        console.log(JSON.stringify(Blob));
-        var obj = {project: { 
-          version: version+1
-          }
-        };
-        var data = JSON.stringify(obj);
-        $.ajax({
-          url: '<%= project_path %>',
-          method: 'PATCH',
-          data: data,
-          contentType: 'application/json',
-          success: function(resp){
-            console.log(resp);
-            featherEditor.close();
-            window.location.replace("/projects");
-          },
-          error: function(err){
-            alert(err);
-          }
-        })
-      },
-      function(err){
-        console.log(err)
-        alert(err);
+      console.log('<%= @project.image %>'.replace('cdn', 'www'))
+      console.log(newURL)
+      $.ajax({
+        method: 'POST',
+        url: '<%= @project.image %>'.replace('cdn', 'www'),
+        data: "url=" + newURL,
+        contentType: 'application/x-www-form-urlencoded',
+        success: function(Blob){
+          console.log(JSON.stringify(Blob));
+          var obj = {project: { 
+            version: version+1
+            }
+          };
+          var data = JSON.stringify(obj);
+          $.ajax({
+            url: '<%= project_path %>',
+            method: 'PATCH',
+            data: data,
+            contentType: 'application/json',
+            success: function(resp){
+              console.log(resp);
+              featherEditor.close();
+              window.location.replace("/projects");
+            },
+            error: function(err){
+              alert(err);
+            }
+          })
+        },
+        error: function(err){
+          console.log(err)
+          alert(err);
+        }
       })
       
     },

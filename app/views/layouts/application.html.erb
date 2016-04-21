@@ -15,21 +15,21 @@
 -->
 <%= filepicker_js_include_tag %>
 <%= render 'layouts/navigation' %>
-<div class="content container-fluid">
+<div "id=content" class="container-fluid">
   <%= yield %>
 </div>
+<!--
 <%= render 'layouts/footer' %>
-
+-->
 </body>
 <script type="text/javascript">
-  $(document).ready(function () {
-    var url = window.location;
+
+  var url = window.location;
     $('.navbar .nav').find('.active').removeClass('active');
     $('.navbar .nav li a').each(function () {
       if (this.href == url) {
         $(this).parent().addClass('active');
       }
     }); 
-  });
 </script>
 </html>

@@ -13,44 +13,88 @@ body {
   padding-top: 80px; 
 }
 
+.login-form {
+    background-color: white;
+
+    form {
+        top: 20px;
+        bottom: 20px;
+        left: 20px;
+        right: 20px;
+    }
+}
 // And finally bootswatch style itself
 @import "bootswatch/yeti/bootswatch";
-
+* {
+    box-sizing: border-box;
+}
 html, body {
+    width: 100%;
     height: 100%;
+    position: absolute
+}
+
+.grid {
+  max-width: 1500px;
+  min-width: 350px;
+}
+
+/* clearfix */
+.grid:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+/* ---- grid-item ---- */
+.grid-item {
+  width: 300px;
+  margin-bottom: 10px;
+  float: left;
 }
 
 #uploader {
     position: absolute;
-    top: 0px;
+    top: 50px;
     left: 0px;
     bottom: 0px;
-    right: 0px;
     width: 100%;
     height: 100%;
 }
 
-.content .row {
+.projectname {
+    line-height: 40px; 
+    vertical-align:middle;
+    font-weight: bold;
+}
+
+hr {
+    width: 100%;
+    position: relative;
+    top: 10px
+}
+
+#content .row {
     position: relative;
     padding-top: 20px;
 }
 
-.content {
-    position: relative;
-    top: 0px;
-    bottom: 0px;
-    left: 0px;
-    right: 0px;
+#content {
+    position: absolute;
+    top: 50px;
+    bottom: 20px;
     width: 100%;
-    height: 100%;
 }
 
-.footer {
-    position: absolute;
-    bottom: 0px;
-    left: 0px;
-    right: 0px;
+#header, #footer, #content { 
+    position: absolute; 
+    left: 0; 
+    width: 100%; 
+}
+
+#footer {
     height: 20px;
+    bottom: 0px;
     border-top: 1px solid white;
     color: white;
 }
@@ -60,9 +104,10 @@ html, body {
   vertical-align: middle;
 }
 
-.navbar a {
-  vertical-align: middle;
+.navbar-nav a {
+  text-align: center;
   font-size: 14pt;
+  line-height: 15px; 
 }
 
 .row .glyphicon {
@@ -79,11 +124,13 @@ body {
  padding-top: 80px;
  background-color: #1b232c;
 }
+
 .nav-item {
  margin-left: 25px;
  float: left;
  margin-top: 20px;
 }
+
 .center {
  text-align: center;
 }

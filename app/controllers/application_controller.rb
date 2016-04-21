@@ -2,27 +2,15 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :null_session
+  skip_before_filter :verify_authenticity_token, :only => [:create, :edit, :destroy]
+  helper_method :current_or_guest_user
   before_filter :get_current_user
-  before_filter :cors_preflight_check
-  after_filter :cors_set_access_control_headers
+  after_filter :set_cors
+  before_filter :configure_permitted_parameters, if: :devise_controller?
 
-  # For all responses in this controller, return the CORS access control headers.
-
-  def cors_set_access_control_headers
-    headers['Access-Control-Allow-Origin'] = 'http://localhost:3000'
-    headers['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS'
-    headers['Access-Control-Max-Age'] = "1728000"
-  end
-
-  # If this is a preflight OPTIONS request, then short-circuit the
-  # request, return only the necessary headers and return an empty
-  # text/plain.
-
-  def cors_preflight_check
-    headers['Access-Control-Allow-Origin'] = 'http://localhost:3000'
-    headers['Access-Control-Allow-Methods'] = 'POST, PUT, DELETE, GET, OPTIONS'
+  def set_cors
+    headers['Access-Control-Allow-Origin'] = '*'
     headers['Access-Control-Request-Method'] = '*'
-    headers['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, Accept, Authorization'
   end
 
   # redirect user back to where they came from
@@ -71,7 +59,7 @@ class ApplicationController < ActionController::Base
   # to hand off from guest_user to current_user.
   def logging_in
     # For example:
-    guest_projects = current_user.projects.all
+    guest_projects = guest_user.projects.all
     guest_projects.each do |project|
       project.user_id = current_user.id
       project.save!
@@ -83,6 +71,14 @@ class ApplicationController < ActionController::Base
     u.save!(:validate => false)
     session[:guest_user_id] = u.id
     u
+  end
+
+  protected
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:username, :email, :password, :password_confirmation, :remember_me, :name) }
+    devise_parameter_sanitizer.for(:sign_in) { |u| u.permit(:login, :username, :email, :password, :remember_me) }
+    devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:username, :email, :password, :password_confirmation, :current_password, :name) }
   end
 
 end
