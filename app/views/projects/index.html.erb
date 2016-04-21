@@ -13,7 +13,7 @@
   });*/
 
   $(document).on('page:load ready', function () {
-    var $grid = $('.grid').imagesLoaded().progress(function() {
+    var $grid = $('.grid').imagesLoaded(function() {
       $grid.masonry({
         itemSelector: '.grid-item',
         columnWidth: 300,
